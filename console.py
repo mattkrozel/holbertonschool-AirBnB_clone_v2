@@ -140,6 +140,7 @@ class HBNBCommand(cmd.Cmd):
 
                 if "\"" in attr_value[1]:
                     attr_value[1] = attr_value[1].replace("\"", "")
+                    attr_value[1] = attr_value[1].replace("_", " ")
                     param_dict.update({attr_value[0]: attr_value[1]})
                 elif "." in attr_value[1]:
                     param_dict.update({attr_value[0]: float(attr_value[1])})

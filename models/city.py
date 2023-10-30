@@ -15,7 +15,5 @@ class City(BaseModel, Base):
         name = Column(String(128), nullable=False)
         places = relationship("Place", backref="cities", cascade="all, delete")
     else:
-        __tablename__ = "cities"
         state_id = ""
         name = ""
-        places = relationship("Place", backref="cities", cascade="all, delete")

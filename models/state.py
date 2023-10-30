@@ -16,9 +16,7 @@ class State(BaseModel, Base):
                               cascade="all, delete-orphan")   
     else:
         __tablename__ = "states"
-        name = Column(String(128), nullable=False)
-        cities = relationship("City", backref="state",
-                              cascade="all, delete-orphan")   
+        name = "" 
         @property
         def cities(self):
             '''

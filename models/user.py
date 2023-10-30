@@ -7,6 +7,7 @@ from models.review import Review
 from models.place import Place
 import os
 
+
 class User(BaseModel, Base):
     """This class defines a user by various attributes"""
     if os.getenv("HBNB_TYPE_STORAGE") == "db":

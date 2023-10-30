@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Review module for the HBNB project """
-from models.base_model import BaseModel, Base
+from models.base_model import BaseModel
+from models.base_model import Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 import os
@@ -14,7 +15,6 @@ class Review(BaseModel, Base):
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
         text = Column(String(1024), nullable=False)
     else:
-        __tablename__ = "reviews"
         place_id = ""
         user_id = ""
         text = ""

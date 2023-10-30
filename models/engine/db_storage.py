@@ -2,6 +2,14 @@
 """This module defines a class to manage database storage for hbnb clone"""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
+from models.base_model import Base
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+from models.base_model import Base
 import os
 
 
@@ -19,7 +27,7 @@ class DBStorage:
                                               os.getenv("HBNB_MYSQL_DB")),
                                       pool_pre_ping=True)
         if os.getenv("HBNB_ENV") == "test":
-            self.drop_all(self.__engine)
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """Queries all objects of a certain (or all) Class(es)"""
@@ -57,14 +65,6 @@ class DBStorage:
 
     def reload(self):
         """Reloads table data into current database session"""
-        from models.base_model import Base
-        from models.user import User
-        from models.place import Place
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.review import Review
-
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=False)

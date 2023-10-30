@@ -19,10 +19,7 @@ class User(BaseModel, Base):
         places = relationship("Place", backref="user", cascade="all, delete")
         reviews = relationship("Review", backref="user", cascade="all, delete")
     else:
-        __tablename__ = "users"
         email = ""
         password = ""
         first_name = ""
         last_name = ""
-        places = relationship("Place", backref="user", cascade="all, delete")
-        reviews = relationship("Review", backref="user", cascade="all, delete")

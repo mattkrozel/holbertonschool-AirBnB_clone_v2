@@ -46,3 +46,38 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
+
+        @property
+        def reviews(self):
+            '''
+            getter attribute for reviews
+            '''
+            from models import storage
+            reviewlist = []
+            allreviews = storage.all('Review').values()
+            for review in allreviews:
+                if self.id == review.place_id:
+                    reviewlist.append(review)
+            return reviewlist
+        
+        @property
+        def amenities(self):
+            '''
+            getter attribute for amenities
+            '''
+            from models import storage
+            amenitylist = []
+            allamenities = storage.all('Amenity').values()
+            for amenity in allamenities:
+                if self.id == amenity.amenity_ids:
+                    amenitylist.append(amenity)
+            return amenitylist
+        
+        @amenities.setter
+        def amenities(self, obj):
+            '''
+            setter attrbitue
+            '''
+            if isinstance(obj, 'Amenity'):
+                self.amenity_id.append(obj.id)
+

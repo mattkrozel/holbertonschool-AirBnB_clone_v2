@@ -5,18 +5,17 @@ from sqlalchemy import Column, String, Integer, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
 import os
 
-place_amenity = Table('place_amenity', Base.metadata,
-                      Column('place_id', String(60),
-                             ForeignKey('places.id'),
-                             primary_key=True, nullable=False),
-                      Column('amenity_id', String(60),
-                             ForeignKey('amenities.id'),
-                             primary_key=True, nullable=False))
+if os.getenv("HBNB_TYPE_STORAGE") == "db":
+    place_amenity = Table('place_amenity', Base.metadata,
+                          Column('place_id', String(60),
+                                 ForeignKey('places.id'),
+                                 primary_key=True, nullable=False),
+                          Column('amenity_id', String(60),
+                                 ForeignKey('amenities.id'),
+                                 primary_key=True, nullable=False))
 
-
-class Place(BaseModel, Base):
-    """ A place to stay """
-    if os.getenv("HBNB_TYPE_STORAGE") == "db":
+    class Place(BaseModel, Base):
+        """ A place to stay """
         __tablename__ = "places"
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
@@ -34,7 +33,9 @@ class Place(BaseModel, Base):
         amenities = relationship("Amenity", secondary=place_amenity,
                                  viewonly=False)
 
-    else:
+else:
+    class Place(BaseModel):
+        """ A place to stay """
         city_id = ""
         user_id = ""
         name = ""
@@ -59,7 +60,7 @@ class Place(BaseModel, Base):
                 if self.id == review.place_id:
                     reviewlist.append(review)
             return reviewlist
-        
+
         @property
         def amenities(self):
             '''
@@ -72,12 +73,12 @@ class Place(BaseModel, Base):
                 if self.id == amenity.amenity_ids:
                     amenitylist.append(amenity)
             return amenitylist
-        
+
         @amenities.setter
         def amenities(self, obj):
+            from models.amenity import Amenity
             '''
             setter attrbitue
             '''
             if isinstance(obj, 'Amenity'):
                 self.amenity_id.append(obj.id)
-

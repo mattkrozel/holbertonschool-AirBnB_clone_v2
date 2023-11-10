@@ -3,20 +3,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
-from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
-from models.base_model import Base
 import os
 
 
 class DBStorage:
     """This Class manages storage of hbnb models in a database engine"""
-    __engine: None
-    __session: None
+    __engine = None
+    __session = None
 
     def __init__(self):
         """Instantiates a new database map object"""
@@ -65,6 +58,13 @@ class DBStorage:
 
     def reload(self):
         """Reloads table data into current database session"""
+        from models.user import User
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
+
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=False)

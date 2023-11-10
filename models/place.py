@@ -37,8 +37,9 @@ class Place(BaseModel, Base):
         def reviews(self):
             ''' getter attribute for reviews '''
             from models import storage
+            from models.review import Review
             review_list = []
-            all_reviews = storage.all('Review').values()
+            all_reviews = storage.all(Review).values()
             for review in all_reviews:
                 if self.id == review.place_id:
                     review_list.append(review)
@@ -50,9 +51,9 @@ class Place(BaseModel, Base):
             from models import storage
             from models.amenity import Amenity
             amenity_list = []
-            all_amenities = storage.all('Amenity').values()
+            all_amenities = storage.all(Amenity).values()
             for amenity in all_amenities:
-                if self.id == amenity.amenity_ids:
+                if self.id == amenity.id:
                     amenity_list.append(amenity)
             return amenity_list
 

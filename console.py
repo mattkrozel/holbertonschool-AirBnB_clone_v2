@@ -241,7 +241,7 @@ class HBNBCommand(cmd.Cmd):
                 if arg_list[0] not in HBNBCommand.classes:
                     print("** class doesn't exist **")
                     return
-                obj_list = storage._DBStorage__session.query(arg_list[0]).all()
+                obj_list = storage._DBStorage__session.query(HBNBCommand.classes[arg_list[0]]).all()
                 for obj in obj_list:
                     print_list.append(str(obj))
             else:

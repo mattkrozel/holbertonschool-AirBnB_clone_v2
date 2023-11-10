@@ -18,10 +18,9 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
         if not kwargs:
-            from models import storage
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
+            self.created_at = datetime.utcnow()
+            self.updated_at = self.created_at
         else:
             kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
@@ -51,8 +50,9 @@ class BaseModel:
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
 
-        if "_sa_instance_state" in dictionary.keys():
-            del dictionary['_sa_instance_state']
+        for key in dictionary.copy().keys():
+            if key == '_sa_instance_state':
+                del dictionary['_sa_instance_state']
 
         return dictionary
 

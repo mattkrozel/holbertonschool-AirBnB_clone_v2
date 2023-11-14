@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+script opens flask server
+'''
 
 from flask import Flask
 

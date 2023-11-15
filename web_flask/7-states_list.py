@@ -1,7 +1,4 @@
 #!/usr/bin/python3
-"""
-script opens flask server with list of states in this file, hi hi hi
-"""
 
 from flask import Flask
 from flask import render_template
@@ -13,14 +10,12 @@ app = Flask(__name__)
 
 @app.route('/states_list', strict_slashes=False)
 def states_list():
-    """ displays html page with this modul """
     return render_template('7-states_list.html',
                            states=storage.all(State))
 
 
 @app.teardown_appcontext
 def teardown(exc):
-    """ removes session with storage """
     storage.close()
 
 

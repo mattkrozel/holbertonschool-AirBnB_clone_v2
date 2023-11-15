@@ -14,7 +14,8 @@ def states_list():
     '''
     displays html page
     '''
-    return render_template('7-states_list.html', states=storage.all(State))
+    return render_template('7-states_list.html',
+                           states=storage.all(State))
 
 
 @app.teardown_appcontext

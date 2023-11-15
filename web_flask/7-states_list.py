@@ -5,7 +5,6 @@ from flask import render_template
 from models import storage, State
 from models.state import State
 
-
 app = Flask(__name__)
 
 

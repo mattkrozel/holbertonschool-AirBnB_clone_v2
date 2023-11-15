@@ -65,3 +65,6 @@ class FileStorage:
                 key_to_delete = key
 
         del self.all()[key_to_delete]
+
+    def close(self):
+        self.reload()

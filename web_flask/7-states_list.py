@@ -6,17 +6,10 @@ script opens flask server
 from flask import Flask
 from flask import render_template
 from models import storage, State
+from models.state import State
 
 
 app = Flask(__name__)
-
-
-@app.teardown_appcontext
-def teardown(exc):
-    '''
-    removes session
-    '''
-    storage.close()
 
 
 @app.route('/states_list', strict_slashes=False)
@@ -25,7 +18,15 @@ def states_list():
     displays html page
     '''
     states = storage.all('State')
-    return render_template('7-states_list.html', states=states)
+    return render_template('7-states_list.html', states=storage.all(State))
+
+
+@app.teardown_appcontext
+def teardown(exc):
+    '''
+    removes session
+    '''
+    storage.close()
 
 
 if __name__ == '__main__':

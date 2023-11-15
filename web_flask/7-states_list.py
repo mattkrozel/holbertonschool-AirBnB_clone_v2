@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+""" script that starts web flask application on port 5000 fetching from storage engine """
 from flask import Flask
 from flask import render_template
 from models import storage, State

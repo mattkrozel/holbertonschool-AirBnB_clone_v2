@@ -1,8 +1,5 @@
 #!/usr/bin/python3
-'''
-script opens flask server
-'''
-
+'''script opens flask server with list of states'''
 from flask import Flask
 from flask import render_template
 from models import storage, State
@@ -17,7 +14,6 @@ def states_list():
     '''
     displays html page
     '''
-    states = storage.all('State')
     return render_template('7-states_list.html', states=storage.all(State))
 
 
@@ -30,4 +26,4 @@ def teardown(exc):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000)
